@@ -2,6 +2,16 @@ const express = require('express');
 const bcrypt = require('bcrypt')
 const app = express();
 
+
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
 app.use(express.json())
 
 const users = []
@@ -21,6 +31,7 @@ app.post('/users', async (req, res) => {
                     password: hashedPassword}
         users.push(user)
         res.status(201).send()
+        console.log(user)
     } catch {
         res.status(500).send()
     }
